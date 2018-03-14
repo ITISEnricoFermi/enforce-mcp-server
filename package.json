@@ -1,7 +1,7 @@
 {
   "name": "controller",
   "version": "1.0.0",
-  "description": "A UI and serial interface used to control motors through Arduino",
+  "description": "Mission Control Panel for Enforce Team - CanSat 2018",
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
