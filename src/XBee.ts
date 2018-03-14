@@ -1,0 +1,46 @@
+import * as SerialPort from "serialport";
+import { EventEmitter } from "events";
+
+export const DELIMETER: string = "\n";
+export const DEFAULT_BAUDRATE: number = 9600;
+
+/**
+ * Wrapper class around SerialPort default methods
+ */
+export class XBee extends EventEmitter {
+  port: SerialPort;
+  parser: SerialPort.parsers.Readline;
+
+  /**
+   * Initialize the xbee class and bind it to a serial port
+   * @param port The port to use
+   * @param baudRate The baud rate for the comunication
+   */
+  constructor(port: string, baudRate?: number) {
+    super();
+    this.port = new SerialPort(port, {
+      baudRate: baudRate || DEFAULT_BAUDRATE
+    });
+
+    this.port.on("error", () => {
+      console.log(`Can't connect to port: ${port}`);
+    });
+
+    this.parser = new SerialPort.parsers.Readline({ delimiter: DELIMETER });
+    
+    this.port.pipe(this.parser);
+    
+    this.parser.on("data", (data) => {
+      this.emit("data", data);
+    });
+  }
+
+  /**
+   * Sends some data through the serial interface
+   * @param data The data to send in the form of a string, buffer, or number 
+   */
+  sendData(data: string | Buffer | number): void {
+    if (this.port.writable)
+      this.port.write(`${data}${DELIMETER}`);
+  }
+}

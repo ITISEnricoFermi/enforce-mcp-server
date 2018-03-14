@@ -1,0 +1,23 @@
+{
+  "name": "controller",
+  "version": "1.0.0",
+  "description": "A UI and serial interface used to control motors through Arduino",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hristo Kamenov",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "express": "^4.16.2",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.12.9",
+    "serialport": "^6.1.1",
+    "socketio": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/serialport": "^6.0.1"
+  }
+}

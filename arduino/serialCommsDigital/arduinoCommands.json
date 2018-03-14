@@ -1,0 +1,20 @@
+{
+  "commands": {
+    "motors": {
+      "left": {
+        "on": "ml1",
+        "off": "ml0"
+      },
+      "right": {
+        "on": "mr1",
+        "off": "mr0"
+      }
+    },
+    "leds": {
+      "exampleled": {
+        "on": "le1",
+        "off": "le1"
+      }
+    }
+  }
+}
