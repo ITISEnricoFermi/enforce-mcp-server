@@ -18,6 +18,7 @@
     "socketio": "^1.0.0"
   },
   "devDependencies": {
-    "@types/serialport": "^6.0.1"
+    "@types/serialport": "^6.0.1",
+    "typescript": "^2.7.2"
   }
 }
