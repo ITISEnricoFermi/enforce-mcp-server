@@ -4,7 +4,17 @@ const { Arduino } = require('./deps/arduino')
 
 app.set('port', process.env.PORT || 3000)
 
-const arduino = new Arduino('COM2')
+const dev = true
+
+// const arduino = new Arduino('COM2')
+
+const arduino =  {
+    left_motor_off() { this.doStuff("Left motor off") },
+    left_motor_on() { this.doStuff("Left motor on") },
+    right_motor_off() { this.doStuff("Right motor off") },
+    right_motor_on() { this.doStuff("Right motor on") },
+    doStuff(stuff) { console.log(stuff) }
+}
 
 //Launch server
 const http = require('http').Server(app)
@@ -40,4 +50,11 @@ io.on('connection', function(socket) {
             socket.emit('rmotorOff')
         }
     })
+
+
+    if (dev) {
+        socket.on('txdata', data => {
+            socket.broadcast.emit('data', data)
+        })
+    }
 })
