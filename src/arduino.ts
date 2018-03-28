@@ -68,7 +68,6 @@ class Motor {
   }
 
   toggle() {
-    if (this.offline) return Error('Motor offline');
     if (this.status) {
       this.turnOff();
     } else {
