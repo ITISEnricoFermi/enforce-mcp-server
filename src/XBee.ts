@@ -34,7 +34,7 @@ export class XBee extends EventEmitter {
       this.emit("data", data);
     });
   }
-
+  
   /**
    * Sends some data through the serial interface
    * @param data The data to send in the form of a string, buffer, or number 

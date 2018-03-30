@@ -13,9 +13,9 @@ var motorCommands = {
 };
 var Arduino = /** @class */ (function () {
     function Arduino(port) {
-        var xbee = new XBee_1.XBee(port);
-        this.rightMotor = new Motor('right', xbee);
-        this.leftMotor = new Motor('left', xbee);
+        this.xbee = new XBee_1.XBee(port);
+        this.rightMotor = new Motor('right', this.xbee);
+        this.leftMotor = new Motor('left', this.xbee);
     }
     Arduino.prototype.right_motor_on = function () {
         this.rightMotor.turnOn();
@@ -59,8 +59,6 @@ var Motor = /** @class */ (function () {
         }
     };
     Motor.prototype.toggle = function () {
-        if (this.offline)
-            return Error('Motor offline');
         if (this.status) {
             this.turnOff();
         }

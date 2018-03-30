@@ -4,17 +4,8 @@ const { Arduino } = require('./deps/arduino')
 
 app.set('port', process.env.PORT || 3000)
 
-const dev = true
-
-// const arduino = new Arduino('COM2')
-
-const arduino =  {
-    left_motor_off() { this.doStuff("Left motor off") },
-    left_motor_on() { this.doStuff("Left motor on") },
-    right_motor_off() { this.doStuff("Right motor off") },
-    right_motor_on() { this.doStuff("Right motor on") },
-    doStuff(stuff) { console.log(stuff) }
-}
+const arduino = new Arduino(process.env.SERPORT || 'COM5')
+const xbee = arduino.xbee;
 
 //Launch server
 const http = require('http').Server(app)
@@ -26,6 +17,10 @@ http.listen(app.get('port'), () => {
 const io = require('socket.io')(http)
 io.on('connection', function(socket) {
     console.log('connected')
+
+    // TODO: parsing dei dati e divisione in singoli eventi a seconda del dato
+    xbee.removeAllListeners('data')
+    xbee.on("data", (data) => socket.emit("data", data))
 
     socket.on('left', (val) => {
         if (val) {
@@ -50,11 +45,4 @@ io.on('connection', function(socket) {
             socket.emit('rmotorOff')
         }
     })
-
-
-    if (dev) {
-        socket.on('txdata', data => {
-            socket.broadcast.emit('data', data)
-        })
-    }
 })

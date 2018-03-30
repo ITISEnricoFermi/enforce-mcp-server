@@ -14,11 +14,12 @@ const motorCommands = {
 export class Arduino {
   private rightMotor: Motor;
   private leftMotor: Motor;
+  public xbee: XBee;
 
   constructor(port: string) {
-    let xbee = new XBee(port);
-    this.rightMotor = new Motor('right', xbee);
-    this.leftMotor = new Motor('left', xbee);
+    this.xbee = new XBee(port);
+    this.rightMotor = new Motor('right', this.xbee);
+    this.leftMotor = new Motor('left', this.xbee);
   }
 
   right_motor_on() {
