@@ -1,4 +1,4 @@
-# prototype-motor-controller
+# Enforce-mcp-server
 Mission Control Panel for Enforce Team - CanSat 2018
 
 ### Prerequisiti
