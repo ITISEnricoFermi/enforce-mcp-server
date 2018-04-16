@@ -26,11 +26,9 @@ io.on('connection', function(socket) {
         if (val) {
             console.log('Left motor started')
             arduino.left_motor_on()
-            socket.emit('lmotorOn')
         } else {
             console.log('Left motor stopped')
             arduino.left_motor_off()
-            socket.emit('lmotorOff')
         }
     })
 
@@ -38,11 +36,9 @@ io.on('connection', function(socket) {
         if (val) {
             console.log('Right motor started')
             arduino.right_motor_on()
-            socket.emit('rmotorOn')
         } else {
             console.log('Right motor stopped')
             arduino.right_motor_off()
-            socket.emit('rmotorOff')
         }
     })
 })
