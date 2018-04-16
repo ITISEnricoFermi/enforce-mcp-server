@@ -57,14 +57,14 @@ class Motor {
   turnOn() {
     if (!this.status) {
       this.status = true;
-      this.sendData(this.motorCommand.on);
+      this.sendCommand(this.motorCommand.on);
     }
   }
 
   turnOff() {
     if (this.status) {
       this.status = false;
-      this.sendData(this.motorCommand.off);
+      this.sendCommand(this.motorCommand.off);
     }
   }
 
@@ -76,8 +76,8 @@ class Motor {
     }
   }
 
-  sendData(data: string) {
+  sendCommand(com: string) {
     if (this.offline) return Error('Motor offline');
-    this.xbee.sendData(data);
+      this.xbee.sendCommand(com);
   }
 }

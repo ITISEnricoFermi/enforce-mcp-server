@@ -11,7 +11,6 @@ const { Arduino } = require('./deps/arduino')
 
 const arduino = new Arduino(process.env.SERPORT || 'COM5')
 const xbee = arduino.xbee
-
 // Routes
 const api = require('./routes/api')
 
