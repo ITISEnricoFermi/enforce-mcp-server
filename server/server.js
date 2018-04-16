@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 require('./db/config/config.js')
 
 const express = require('express')
@@ -18,7 +10,7 @@ const ioClient = require('socket.io-client')
 const { Arduino } = require('./deps/arduino')
 
 const arduino = new Arduino(process.env.SERPORT || 'COM5')
-const xbee = arduino.xbee;
+const xbee = arduino.xbee
 
 // Routes
 const api = require('./routes/api')
