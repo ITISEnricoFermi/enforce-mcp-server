@@ -1,24 +1,32 @@
 {
-  "name": "controller",
+  "name": "enforce-mcp-server",
   "version": "1.0.0",
   "description": "Mission Control Panel for Enforce Team - CanSat 2018",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/server.js"
   },
-  "author": "n4y0n & Revanee",
+  "author": "Enforce Team - ITIS Enrico Fermi, CanSat 2018",
   "license": "MIT",
   "dependencies": {
-    "bootstrap": "^4.0.0",
     "express": "^4.16.2",
-    "jquery": "^3.3.1",
-    "popper.js": "^1.12.9",
-    "serialport": "^6.1.1"
+    "serialport": "^6.1.1",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "lodash": "^4.17.5",
+    "mongoose": "^5.0.7",
+    "serialize-javascript": "^1.4.0",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.1.0"
   },
   "devDependencies": {
     "@types/serialport": "^6.0.1",
-    "socket.io": "^2.0.4",
-    "typescript": "^2.7.2"
+    "typescript": "^2.7.2",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }
