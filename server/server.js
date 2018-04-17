@@ -11,11 +11,6 @@ const { Arduino } = require('./deps/arduino')
 
 const arduino = new Arduino(process.env.SERPORT || 'COM5')
 const xbee = arduino.xbee
-<<<<<<< HEAD
-=======
-// Routes
-const api = require('./routes/api')
->>>>>>> 9f91cab1517988b6d5e71dea2f7f6a98e1b1f745
 
 const {
   mongoose
