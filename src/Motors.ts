@@ -1,4 +1,4 @@
-import { XBee } from "./XBee";
+import { XBee } from "module-xbee";
 
 const motorCommands = {
   left: {
@@ -11,7 +11,7 @@ const motorCommands = {
   }
 };
 
-export class Arduino {
+export class Motors {
   private rightMotor: Motor;
   private leftMotor: Motor;
   public xbee: XBee;

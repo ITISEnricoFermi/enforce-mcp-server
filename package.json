@@ -9,13 +9,14 @@
   "author": "Enforce Team - ITIS Enrico Fermi, CanSat 2018",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.2",
-    "serialport": "^6.1.1",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
     "lodash": "^4.17.5",
+    "module-xbee": "0.0.3",
     "mongoose": "^5.0.7",
     "serialize-javascript": "^1.4.0",
+    "serialport": "^6.1.1",
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.1.0"
   },

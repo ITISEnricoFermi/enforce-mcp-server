@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var XBee_1 = require("./XBee");
+var module_xbee_1 = require("module-xbee");
 var motorCommands = {
     left: {
         on: "ml1",
@@ -11,27 +11,27 @@ var motorCommands = {
         off: "mr0"
     }
 };
-var Arduino = /** @class */ (function () {
-    function Arduino(port) {
-        this.xbee = new XBee_1.XBee(port);
+var Motors = /** @class */ (function () {
+    function Motors(port) {
+        this.xbee = new module_xbee_1.XBee(port);
         this.rightMotor = new Motor('right', this.xbee);
         this.leftMotor = new Motor('left', this.xbee);
     }
-    Arduino.prototype.right_motor_on = function () {
+    Motors.prototype.right_motor_on = function () {
         this.rightMotor.turnOn();
     };
-    Arduino.prototype.right_motor_off = function () {
+    Motors.prototype.right_motor_off = function () {
         this.rightMotor.turnOff();
     };
-    Arduino.prototype.left_motor_on = function () {
+    Motors.prototype.left_motor_on = function () {
         this.leftMotor.turnOn();
     };
-    Arduino.prototype.left_motor_off = function () {
+    Motors.prototype.left_motor_off = function () {
         this.leftMotor.turnOff();
     };
-    return Arduino;
+    return Motors;
 }());
-exports.Arduino = Arduino;
+exports.Motors = Motors;
 var Motor = /** @class */ (function () {
     function Motor(motor, xbee) {
         this.xbee = xbee;
@@ -49,13 +49,13 @@ var Motor = /** @class */ (function () {
     Motor.prototype.turnOn = function () {
         if (!this.status) {
             this.status = true;
-            this.sendData(this.motorCommand.on);
+            this.sendCommand(this.motorCommand.on);
         }
     };
     Motor.prototype.turnOff = function () {
         if (this.status) {
             this.status = false;
-            this.sendData(this.motorCommand.off);
+            this.sendCommand(this.motorCommand.off);
         }
     };
     Motor.prototype.toggle = function () {
@@ -66,10 +66,10 @@ var Motor = /** @class */ (function () {
             this.turnOn();
         }
     };
-    Motor.prototype.sendData = function (data) {
+    Motor.prototype.sendCommand = function (com) {
         if (this.offline)
             return Error('Motor offline');
-        this.xbee.sendData(data);
+        this.xbee.sendCommand(com);
     };
     return Motor;
 }());

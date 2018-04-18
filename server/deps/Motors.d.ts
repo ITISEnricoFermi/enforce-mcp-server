@@ -1,5 +1,5 @@
-import { XBee } from "./XBee";
-export declare class Arduino {
+import { XBee } from "module-xbee";
+export declare class Motors {
     private rightMotor;
     private leftMotor;
     xbee: XBee;
