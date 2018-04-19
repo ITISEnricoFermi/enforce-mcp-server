@@ -8,10 +8,10 @@ const cookieParser = require('cookie-parser')
 const socketIO = require('socket.io')
 const path = require('path')
 const ioClient = require('socket.io-client')
-const { Arduino } = require('./deps/arduino')
+const { Motors } = require('./deps/Motors')
 
-const arduino = new Arduino(process.env.SERPORT || 'COM5')
-const { xbee } = arduino
+const motors = new Motors(process.env.SERPORT || '/dev/tty.usbserial-DN02B0LU')
+const { xbee } = motors
 
 // Routes
 const missions = require('./routes/missions')
@@ -51,8 +51,8 @@ const {
 } = require('./models/pressure')
 
 const {
-  Position
-} = require('./models/position')
+  Location
+} = require('./models/location')
 
 const {
   Orientation
@@ -64,27 +64,52 @@ io.on('connection', (socket) => {
 
   // TODO: parsing dei dati e divisione in singoli eventi a seconda del dato
   xbee.removeAllListeners('data')
-  xbee.on('data', (data) => {
-    return socket.emit('data', data)
+  xbee.on('temperature', async (temperature) => {
+    console.log('Temperature: ', temperature)
+    // temperature = new Temperature(temperature)
+    // temperature = await Temperature.save()
+    return socket.emit('temperature', temperature)
+  })
+
+  xbee.on('humidity', async (humidity) => {
+    console.log('Humidity:', humidity)
+    return socket.emit('humidity', humidity)
+  })
+
+  xbee.on('pressure', async (pressure) => {
+    console.log('Pressure:', pressure)
+    return socket.emit('pressure', pressure)
+  })
+
+  xbee.on('location', async (location) => {
+    console.log('Location: ', location)
+    // location = new Location(location)
+    // location = await Location.save()
+    return socket.emit('position', location)
+  })
+
+  xbee.on('orientation', async (orientation) => {
+    console.log('Orientation: ', orientation)
+    return socket.emit('orientation', orientation)
   })
 
   socket.on('left', (val) => {
     if (val) {
       console.log('Left motor started')
-      arduino.left_motor_on()
+      motors.left_motor_on()
     } else {
       console.log('Left motor stopped')
-      arduino.left_motor_off()
+      motors.left_motor_off()
     }
   })
 
   socket.on('right', (val) => {
     if (val) {
       console.log('Right motor started')
-      arduino.right_motor_on()
+      motors.right_motor_on()
     } else {
       console.log('Right motor stopped')
-      arduino.right_motor_off()
+      motors.right_motor_off()
     }
   })
 })

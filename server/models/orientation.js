@@ -1,8 +1,22 @@
 const mongoose = require('mongoose')
 
 let OrientationSchema = new mongoose.Schema({
-  Orientation: {
-    type: Number
+  orientation: {
+    x: {
+      type: Number
+    },
+    y: {
+      type: Number
+    },
+    z: {
+      type: Number
+    },
+    w: {
+      type: Number
+    },
+    scale: {
+      type: Number
+    }
   },
   mission: {
     type: Number,

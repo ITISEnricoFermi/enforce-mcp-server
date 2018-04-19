@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-let PositionSchema = new mongoose.Schema({
-  position: {
+let LocationSchema = new mongoose.Schema({
+  location: {
     latitude: {
       type: Number
     },
@@ -17,8 +17,8 @@ let PositionSchema = new mongoose.Schema({
   }
 })
 
-let Position = mongoose.model('Position', PositionSchema)
+let Location = mongoose.model('Location', LocationSchema)
 
 module.exports = {
-  Position
+  Location
 }

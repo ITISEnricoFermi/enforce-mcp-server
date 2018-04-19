@@ -14,7 +14,6 @@ const {
 
 router.get('/', asyncMiddleware(async (req, res) => {
   let missions = await Mission.find()
-  console.log(missions)
   res.status(200).json(missions)
 }))
 

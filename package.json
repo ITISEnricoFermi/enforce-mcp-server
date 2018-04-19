@@ -11,23 +11,23 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "lodash": "^4.17.5",
-    "module-xbee": "0.0.3",
-    "mongoose": "^5.0.7",
-    "serialize-javascript": "^1.4.0",
-    "serialport": "^6.1.1",
-    "socket.io": "^2.0.4",
+    "module-xbee": "0.0.7",
+    "mongoose": "^5.0.15",
+    "serialize-javascript": "^1.5.0",
+    "serialport": "^6.2.0",
+    "socket.io": "^2.1.0",
     "socket.io-client": "^2.1.0"
   },
   "devDependencies": {
     "@types/serialport": "^6.0.1",
-    "typescript": "^2.7.2",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "typescript": "^2.8.1"
   }
 }
