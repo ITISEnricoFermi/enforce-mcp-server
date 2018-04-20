@@ -3,17 +3,25 @@ const mongoose = require('mongoose')
 let LocationSchema = new mongoose.Schema({
   location: {
     latitude: {
-      type: Number
+      type: Number,
+      required: true
     },
     longitude: {
-      type: Number
+      type: Number,
+      required: true
     },
     altitude: {
-      type: Number
+      type: Number,
+      required: true
+    },
+    speed: {
+      type: Number,
+      required: true
     }
   },
   mission: {
-    type: Number
+    type: Number,
+    ref: 'mission'
   }
 })
 

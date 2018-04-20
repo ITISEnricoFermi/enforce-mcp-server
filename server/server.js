@@ -66,31 +66,48 @@ io.on('connection', (socket) => {
   xbee.removeAllListeners('data')
   xbee.on('temperature', async (temperature) => {
     console.log('Temperature: ', temperature)
-    // temperature = new Temperature(temperature)
-    // temperature = await Temperature.save()
+    temperature = new Temperature(temperature)
+    temperature = await Temperature.save()
+    client.emit('temperature', temperature)
     return socket.emit('temperature', temperature)
   })
 
   xbee.on('humidity', async (humidity) => {
     console.log('Humidity:', humidity)
+    humidity = new Humidity(humidity)
+    humidity = await Humidity.save()
+    client.emit('humidity', humidity)
     return socket.emit('humidity', humidity)
   })
 
   xbee.on('pressure', async (pressure) => {
     console.log('Pressure:', pressure)
+    pressure = new Pressure(pressure)
+    pressure = await Pressure.save()
+    client.emit('pressure', pressure)
     return socket.emit('pressure', pressure)
   })
 
   xbee.on('location', async (location) => {
     console.log('Location: ', location)
-    // location = new Location(location)
-    // location = await Location.save()
+    location = new Location(location)
+    location = await Location.save()
+    client.emit('position', location)
     return socket.emit('position', location)
   })
 
   xbee.on('orientation', async (orientation) => {
     console.log('Orientation: ', orientation)
+    orientation = new Orientation(orientation)
+    orientation = await Orientation.save()
+    client.emit('orientation', orientation)
     return socket.emit('orientation', orientation)
+  })
+
+  xbee.on('target', async (target) => {
+    console.log('Target: ', target)
+    client.emit('target', target)
+    return socket.emit('target', target)
   })
 
   socket.on('left', (val) => {

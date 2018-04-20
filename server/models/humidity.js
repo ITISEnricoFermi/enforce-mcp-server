@@ -2,10 +2,12 @@ const mongoose = require('mongoose')
 
 let HumiditySchema = new mongoose.Schema({
   humidity: {
-    type: Number
+    type: Number,
+    required: true
   },
   mission: {
-    type: Number
+    type: Number,
+    ref: 'mission'
   }
 })
 

@@ -2,10 +2,13 @@ const mongoose = require('mongoose')
 
 let PressureSchema = new mongoose.Schema({
   pressure: {
-    type: Number
+    type: Number,
+    required: true
   },
   mission: {
-    type: Number
+    type: Number,
+    ref: 'mission',
+    required: true
   }
 })
 

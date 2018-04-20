@@ -3,24 +3,25 @@ const mongoose = require('mongoose')
 let OrientationSchema = new mongoose.Schema({
   orientation: {
     x: {
-      type: Number
+      type: Number,
+      required: true
     },
     y: {
-      type: Number
+      type: Number,
+      required: true
     },
     z: {
-      type: Number
+      type: Number,
+      required: true
     },
     w: {
-      type: Number
-    },
-    scale: {
-      type: Number
+      type: Number,
+      required: true
     }
   },
   mission: {
     type: Number,
-    ref: 'Mission'
+    ref: 'mission'
   }
 })
 
