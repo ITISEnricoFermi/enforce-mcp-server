@@ -4,11 +4,11 @@ let HumiditySchema = new mongoose.Schema({
   humidity: {
     type: Number,
     required: true
-  },
-  mission: {
-    type: Number,
-    ref: 'mission'
   }
+  // mission: {
+  //   type: Number,
+  //   ref: 'mission'
+  // }
 })
 
 let Humidity = mongoose.model('Humidity', HumiditySchema)

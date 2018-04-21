@@ -18,11 +18,11 @@ let LocationSchema = new mongoose.Schema({
       type: Number,
       required: true
     }
-  },
-  mission: {
-    type: Number,
-    ref: 'mission'
   }
+  // mission: {
+  //   type: Number,
+  //   ref: 'mission'
+  // }
 })
 
 let Location = mongoose.model('Location', LocationSchema)

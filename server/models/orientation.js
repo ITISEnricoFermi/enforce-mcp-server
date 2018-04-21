@@ -18,11 +18,11 @@ let OrientationSchema = new mongoose.Schema({
       type: Number,
       required: true
     }
-  },
-  mission: {
-    type: Number,
-    ref: 'mission'
   }
+  // mission: {
+  //   type: Number,
+  //   ref: 'mission'
+  // }
 })
 
 let Orientation = mongoose.model('Orientation', OrientationSchema)
