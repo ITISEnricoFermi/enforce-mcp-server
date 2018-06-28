@@ -1,5 +1,5 @@
-require('./db/config/config.js')
-require('./db/mongoose')
+// require('./db/config/config.js')
+// require('./db/mongoose')
 
 const express = require('express')
 const http = require('http')
