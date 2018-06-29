@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const socketIO = require('socket.io')
 const path = require('path')
+const colors = require('colors')
 const ioClient = require('socket.io-client')
 const {Motors} = require('./deps/Motors')
 
@@ -29,29 +30,30 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/missions/', missions)
 
-const client = ioClient.connect('http://enforce.itisfermi.it', {secure: true})
+const client = ioClient('https://enforce.itisfermi.it', {secure: true, rejectUnauthorized: false, transports: ['websocket', 'flashsocket', 'polling']})
+// const client = ioClient('http://185.25.207.165:4000')
 
 // Comunicazione con il sito
 client.on('connect', () => {
-  client.emit('data', {name: 'Test'})
+  client.emit('data', {name: 'Mission Control Panel connesso al sito.'})
 })
 
-const {Temperature} = require('./models/temperature')
-
-const {Humidity} = require('./models/humidity')
-
-const {Pressure} = require('./models/pressure')
-
-const {Location} = require('./models/location')
-
-const {Orientation} = require('./models/orientation')
+// const {Temperature} = require('./models/temperature')
+//
+// const {Humidity} = require('./models/humidity')
+//
+// const {Pressure} = require('./models/pressure')
+//
+// const {Location} = require('./models/location')
+//
+// const {Orientation} = require('./models/orientation')
 
 // Comunicazione con il client
 io.on('connection', (socket) => {
-  console.log('connected')
+  console.log('Client connesso al server socket.'.green)
 
   socket.on('status', () => {
-    console.log('status')
+    console.log('Status'.yellow)
     xbee.send('s')
   })
 
@@ -221,5 +223,5 @@ app.use((err, req, res, next) => {
 })
 
 server.listen(port, () => {
-  console.log(`Server started on port ${port}.`)
+  console.log(`Server started on port ${port}.`.blue)
 })
