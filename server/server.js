@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/missions/', missions)
 
-const client = ioClient.connect('http://185.25.207.165:4000')
+const client = ioClient.connect('http://enforce.itisfermi.it', {secure: true})
 
 // Comunicazione con il sito
 client.on('connect', () => {
@@ -61,7 +61,6 @@ io.on('connection', (socket) => {
         if (status) {
           return xbee.send('command', 'sensors -i 1')
         }
-
         xbee.send('command', 'sensors -i 0')
         break
       case ('g'):
@@ -106,6 +105,9 @@ io.on('connection', (socket) => {
   })
 
   xbee.on('temperature', async (temperature) => {
+    if (isNaN(Number(temperature)) || temperature > 100 || temperature < -20) {
+      return
+    }
     console.log('Temperature: ', temperature)
     client.emit('temperature', temperature)
     socket.emit('temperature', temperature)
@@ -120,6 +122,9 @@ io.on('connection', (socket) => {
   })
 
   xbee.on('humidity', async (humidity) => {
+    if (isNaN(Number(humidity)) || humidity > 100 || humidity < 0) {
+      return
+    }
     console.log('Humidity:', humidity)
     client.emit('humidity', humidity)
     socket.emit('humidity', humidity)
@@ -134,6 +139,9 @@ io.on('connection', (socket) => {
   })
 
   xbee.on('pressure', async (pressure) => {
+    if (isNaN(Number(pressure)) || pressure > 1500 || pressure < 500) {
+      return
+    }
     console.log('Pressure:', pressure)
     client.emit('pressure', pressure)
     socket.emit('pressure', pressure)
@@ -149,9 +157,8 @@ io.on('connection', (socket) => {
 
   xbee.on('position', async (position) => {
     console.log('position: ', position)
-    position = JSON.parse(position)
-    client.emit('position', JSON.stringify(position))
-    socket.emit('position', JSON.stringify(position))
+    client.emit('position', position)
+    socket.emit('position', position)
     // try {
     //   position = new Location({
     //     position
@@ -163,7 +170,16 @@ io.on('connection', (socket) => {
   })
 
   xbee.on('orientation', async (orientation) => {
-    // orientation = orientation
+    try {
+      orientation = JSON.parse(orientation)
+    } catch (e) {
+      return
+    }
+    if (orientation.x === undefined || orientation.y === undefined || orientation.z === undefined || orientation.w === undefined) {
+      return
+    }
+    let {x, y, z, w} = orientation
+    orientation = {x, y, z, w}
     console.log('Orientation: ', orientation)
     client.emit('orientation', JSON.stringify(orientation))
     socket.emit('orientation', JSON.stringify(orientation))

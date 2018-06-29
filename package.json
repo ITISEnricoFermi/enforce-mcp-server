@@ -13,7 +13,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
     "lodash": "^4.17.5",
-    "module-xbee": "git+https://github.com/n4y0n/node-xbee.git#v0.1.2",
+    "module-xbee": "git+https://github.com/n4y0n/node-xbee.git#v1.0.2",
     "mongoose": "^5.0.15",
     "serialize-javascript": "^1.5.0",
     "serialport": "^6.2.0",
