@@ -8,10 +8,10 @@ const cookieParser = require('cookie-parser')
 const socketIO = require('socket.io')
 const path = require('path')
 const ioClient = require('socket.io-client')
-const { Motors } = require('./deps/Motors')
+const {Motors} = require('./deps/Motors')
 
 const motors = new Motors(process.env.SERPORT || '/dev/tty.usbserial-DN02B0LU')
-const { xbee } = motors
+const {xbee} = motors
 
 // Routes
 const missions = require('./routes/missions')
@@ -33,30 +33,18 @@ const client = ioClient.connect('http://185.25.207.165:4000')
 
 // Comunicazione con il sito
 client.on('connect', () => {
-  client.emit('data', {
-    name: 'Test'
-  })
+  client.emit('data', {name: 'Test'})
 })
 
-const {
-  Temperature
-} = require('./models/temperature')
+const {Temperature} = require('./models/temperature')
 
-const {
-  Humidity
-} = require('./models/humidity')
+const {Humidity} = require('./models/humidity')
 
-const {
-  Pressure
-} = require('./models/pressure')
+const {Pressure} = require('./models/pressure')
 
-const {
-  Location
-} = require('./models/location')
+const {Location} = require('./models/location')
 
-const {
-  Orientation
-} = require('./models/orientation')
+const {Orientation} = require('./models/orientation')
 
 // Comunicazione con il client
 io.on('connection', (socket) => {
@@ -64,92 +52,54 @@ io.on('connection', (socket) => {
 
   socket.on('status', () => {
     console.log('status')
-    xbee.sendCommand('s')
+    xbee.send('s')
   })
 
-  socket.on('mr0', () => {
-    console.log('mr0')
-    xbee.sendCommand('mr0')
+  socket.on('sensors', (sensor, status) => {
+    switch (sensor) {
+      case ('i'):
+        if (status) {
+          return xbee.send('command', 'sensors -i 1')
+        }
+
+        xbee.send('command', 'sensors -i 0')
+        break
+      case ('g'):
+        if (status) {
+          return xbee.send('command', 'sensors -g 1')
+        }
+        xbee.send('command', 'sensors -g 0')
+        break
+      case ('t'):
+        if (status) {
+          return xbee.send('command', 'sensors -t 1')
+        }
+        xbee.send('command', 'sensors -t 1')
+        break
+    }
   })
 
-  socket.on('mr1', () => {
-    console.log('mr1')
-    xbee.sendCommand('mr1')
+  socket.on('left', (val) => {
+    if (val) {
+      console.log('Left motor started')
+      motors.left_motor_on()
+    } else {
+      console.log('Left motor stopped')
+      motors.left_motor_off()
+    }
   })
 
-  socket.on('ml0', () => {
-    console.log('ml0')
-    xbee.sendCommand('ml0')
+  socket.on('right', (val) => {
+    if (val) {
+      console.log('Right motor started')
+      motors.right_motor_on()
+    } else {
+      console.log('Right motor stopped')
+      motors.right_motor_off()
+    }
   })
 
-  socket.on('ml1', () => {
-    console.log('ml1')
-    xbee.sendCommand('ml1')
-  })
-
-  socket.on('g0', () => {
-    console.log('g0')
-    xbee.sendCommand('g0')
-  })
-
-  socket.on('g1', () => {
-    console.log('g1')
-    xbee.sendCommand('g1')
-  })
-
-  socket.on('i0', () => {
-    console.log('i0')
-    xbee.sendCommand('i0')
-  })
-
-  socket.on('i1', () => {
-    console.log('i1')
-    xbee.sendCommand('i1')
-  })
-
-  socket.on('b0', () => {
-    console.log('b0')
-    xbee.sendCommand('b0')
-  })
-
-  socket.on('b1', () => {
-    console.log('b1')
-    xbee.sendCommand('b1')
-  })
-
-  socket.on('c0', () => {
-    console.log('c0')
-    xbee.sendCommand('c0')
-  })
-
-  socket.on('c1', () => {
-    console.log('c1')
-    xbee.sendCommand('c1')
-  })
-
-  socket.on('cs0', () => {
-    console.log('cs0')
-    xbee.sendCommand('cs0')
-  })
-
-  socket.on('cs1', () => {
-    console.log('cs1')
-    xbee.sendCommand('cs1')
-  })
-
-  socket.on('p0', () => {
-    console.log('p0')
-    xbee.sendCommand('p0')
-  })
-
-  socket.on('p1', () => {
-    console.log('p1')
-    xbee.sendCommand('p1')
-  })
-
-  socket.on('xy', (marker) => {
-    xbee.sendCommand(`x${marker.latitude},${marker.longitude}`)
-  })
+  // Eventi Xbee
 
   xbee.on('status', async (status) => {
     return socket.emit('status', status)
@@ -197,23 +147,23 @@ io.on('connection', (socket) => {
     // }
   })
 
-  xbee.on('location', async (location) => {
-    console.log('Location: ', location)
-    location = JSON.parse(location)
-    client.emit('position', JSON.stringify(location))
-    socket.emit('position', JSON.stringify(location))
+  xbee.on('position', async (position) => {
+    console.log('position: ', position)
+    position = JSON.parse(position)
+    client.emit('position', JSON.stringify(position))
+    socket.emit('position', JSON.stringify(position))
     // try {
-    //   location = new Location({
-    //     location
+    //   position = new Location({
+    //     position
     //   })
-    //   location = await location.save()
+    //   position = await position.save()
     // } catch (e) {
     //   console.log(e)
     // }
   })
 
   xbee.on('orientation', async (orientation) => {
-    orientation = JSON.parse(orientation)
+    // orientation = orientation
     console.log('Orientation: ', orientation)
     client.emit('orientation', JSON.stringify(orientation))
     socket.emit('orientation', JSON.stringify(orientation))
@@ -227,31 +177,11 @@ io.on('connection', (socket) => {
     // }
   })
 
-  xbee.on('target', async (target) => {
-    console.log('Target: ', target)
-    client.emit('target', target.target)
-    return socket.emit('target', target.target)
-  })
-
-  socket.on('left', (val) => {
-    if (val) {
-      console.log('Left motor started')
-      motors.left_motor_on()
-    } else {
-      console.log('Left motor stopped')
-      motors.left_motor_off()
-    }
-  })
-
-  socket.on('right', (val) => {
-    if (val) {
-      console.log('Right motor started')
-      motors.right_motor_on()
-    } else {
-      console.log('Right motor stopped')
-      motors.right_motor_off()
-    }
-  })
+  // xbee.on('target', async (target) => {
+  //   console.log('Target: ', target)
+  //   client.emit('target', target.target)
+  //   return socket.emit('target', target.target)
+  // })
 })
 
 app.use((err, req, res, next) => {
