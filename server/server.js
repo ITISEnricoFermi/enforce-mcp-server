@@ -108,6 +108,7 @@ io.on('connection', (socket) => {
     if (isNaN(Number(temperature)) || temperature > 100 || temperature < -20) {
       return
     }
+    temperature = Number(temperature).toFixed(2)
     console.log('Temperature: ', temperature)
     client.emit('temperature', temperature)
     socket.emit('temperature', temperature)
@@ -125,6 +126,7 @@ io.on('connection', (socket) => {
     if (isNaN(Number(humidity)) || humidity > 100 || humidity < 0) {
       return
     }
+    humidity = Number(humidity).toFixed(2)
     console.log('Humidity:', humidity)
     client.emit('humidity', humidity)
     socket.emit('humidity', humidity)
@@ -142,6 +144,7 @@ io.on('connection', (socket) => {
     if (isNaN(Number(pressure)) || pressure > 1500 || pressure < 500) {
       return
     }
+    pressure = Number(pressure).toFixed(2)
     console.log('Pressure:', pressure)
     client.emit('pressure', pressure)
     socket.emit('pressure', pressure)
@@ -153,6 +156,16 @@ io.on('connection', (socket) => {
     // } catch (e) {
     //   console.log(e)
     // }
+  })
+
+  xbee.on('altitude', async (altitude) => {
+    if (isNaN(Number(altitude)) || altitude > 2000 || altitude < -500) {
+      return
+    }
+    altitude = Number(altitude).toFixed(2)
+    console.log('Altitude:', altitude)
+    client.emit('altitude', altitude)
+    socket.emit('altitude', altitude)
   })
 
   xbee.on('position', async (position) => {

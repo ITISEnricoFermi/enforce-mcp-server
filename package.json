@@ -9,25 +9,25 @@
   "author": "Enforce Team - ITIS Enrico Fermi, CanSat 2018",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
-    "lodash": "^4.17.5",
-    "module-xbee": "git+https://github.com/n4y0n/node-xbee.git#v1.0.2",
-    "mongoose": "^5.0.15",
+    "lodash": "^4.17.10",
+    "module-xbee": "git+https://github.com/n4y0n/node-xbee.git#v0.1.3",
+    "mongoose": "^5.1.7",
     "serialize-javascript": "^1.5.0",
     "serialport": "^6.2.0",
-    "socket.io": "^2.1.0",
-    "socket.io-client": "^2.1.0"
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1"
   },
   "devDependencies": {
-    "@types/serialport": "^6.0.1",
+    "@types/serialport": "^6.0.3",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "typescript": "^2.8.1"
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "typescript": "^2.9.2"
   }
 }
