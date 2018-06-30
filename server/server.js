@@ -100,6 +100,26 @@ io.on('connection', (socket) => {
     }
   })
 
+  setInterval(() => {
+    client.emit('temperature', (Math.random() * 10 + 20).toFixed(2))
+    socket.emit('temperature', (Math.random() * 10 + 20).toFixed(2))
+  }, 500)
+
+  setInterval(() => {
+    client.emit('humidity', (Math.random() * 10 + 20).toFixed(2))
+    socket.emit('humidity', (Math.random() * 10 + 20).toFixed(2))
+  }, 500)
+
+  setInterval(() => {
+    client.emit('pressure', (Math.random() * 10 + 1000).toFixed(2))
+    socket.emit('pressure', (Math.random() * 10 + 1000).toFixed(2))
+  }, 500)
+
+  setInterval(() => {
+    client.emit('altitude', (Math.random() * 10 + 1000).toFixed(2))
+    socket.emit('altitude', (Math.random() * 10 + 1000).toFixed(2))
+  }, 500)
+
   // Eventi Xbee
 
   xbee.on('status', async (status) => {
@@ -160,29 +180,29 @@ io.on('connection', (socket) => {
     // }
   })
 
-  xbee.on('altitude', async (altitude) => {
-    if (isNaN(Number(altitude)) || altitude > 2000 || altitude < -500) {
-      return
-    }
-    altitude = Number(altitude).toFixed(2)
-    console.log('Altitude:', altitude)
-    client.emit('altitude', altitude)
-    socket.emit('altitude', altitude)
-  })
-
-  xbee.on('position', async (position) => {
-    console.log('position: ', position)
-    client.emit('position', position)
-    socket.emit('position', position)
-    // try {
-    //   position = new Location({
-    //     position
-    //   })
-    //   position = await position.save()
-    // } catch (e) {
-    //   console.log(e)
-    // }
-  })
+  // xbee.on('altitude', async (altitude) => {
+  //   if (isNaN(Number(altitude)) || altitude > 2000 || altitude < -500) {
+  //     return
+  //   }
+  //   altitude = Number(altitude).toFixed(2)
+  //   console.log('Altitude:', altitude)
+  //   client.emit('Altitude', altitude)
+  //   socket.emit('Altitude', altitude)
+  // })
+  //
+  // xbee.on('position', async (position) => {
+  //   console.log('position: ', position)
+  //   client.emit('position', position)
+  //   socket.emit('position', position)
+  //   // try {
+  //   //   position = new Location({
+  //   //     position
+  //   //   })
+  //   //   position = await position.save()
+  //   // } catch (e) {
+  //   //   console.log(e)
+  //   // }
+  // })
 
   xbee.on('orientation', async (orientation) => {
     try {
