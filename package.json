@@ -15,7 +15,7 @@
     "express": "^4.16.4",
     "lodash": "^4.17.13",
     "module-xbee": "git+https://github.com/n4y0n/node-xbee.git#v1.0.2",
-    "mongoose": "^5.6.11",
+    "mongoose": "^5.7.0",
     "serialize-javascript": "^1.8.0",
     "serialport": "^7.1.4",
     "socket.io": "^2.2.0",
